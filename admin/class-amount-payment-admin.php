@@ -112,8 +112,31 @@ class Amount_Payment_Admin {
             wp_die(__('You do not have sufficient permissions to access this page.'));
         }
 
-        $products = wc_get_products();
+        $args = array('limit' => 10);
+        $products = \wc_get_products($args);
 
-        var_dump($products);
+        include plugin_dir_path(__FILE__) . 'partials/amount-payment-admin-page.php';
+    }
+
+
+    public function register_settings() {
+        //this will save the option in the wp_options table as 'amount_payment_settings'
+        register_setting('amount_payment_settings', 'amount_payment_settings', 'amount_payment_settings_validate');
+    }
+
+    public function amount_payment_settings_validate($args) {
+        //$args will contain the values posted in your settings form, you can validate them as no spaces allowed, no special chars allowed or validate emails etc.
+        if (!isset($args['amount_payment_product'])) {
+            //add a settings error because the email is invalid and make the form field blank, so that the user can enter again
+            $args['amount_payment_product'] = null;
+            add_settings_error('amount_payment_settings', 'amount_payment_select_product', 'Please enter a Product!', $type = 'error');
+        }
+
+        //make sure you return the args
+        return $args;
+    }
+
+    public function admin_notices() {
+        settings_errors();
     }
 }

@@ -123,7 +123,9 @@ class Amount_Payment_Public {
             global $woocommerce;
             $items = $woocommerce->cart->get_cart();
             if (count($items) == 0) {
-                $woocommerce->cart->add_to_cart(474, 1);
+                $options = get_option('amount_payment_settings');
+                $selected_product = (isset($options['amount_payment_product'])) ? intval($options['amount_payment_product']) : null;
+                $woocommerce->cart->add_to_cart($selected_product, 1);
                 wp_send_json(array('redirect' => wc_get_checkout_url(), 'status' => 'Added to checkout', 'type' => 'success'));
             } else {
                 wp_send_json(array('redirect' => wc_get_checkout_url(), 'status' => 'Already in the checkout', 'type' => 'success'));
