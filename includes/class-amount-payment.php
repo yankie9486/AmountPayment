@@ -147,6 +147,8 @@ class AmountPayment {
 
         $this->loader->add_action('admin_init', $plugin_admin, 'register_settings');
         $this->loader->add_action('admin_notices', $plugin_admin, 'admin_notices');
+
+        $this->loader->add_filter('nav_menu_link_attributes', $plugin_admin, 'add_specific_menu_location_atts', 10, 3);
     }
 
     /**
@@ -173,7 +175,7 @@ class AmountPayment {
         $this->loader->add_filter('woocommerce_checkout_fields', $plugin_public, 'remove_order_notes');
 
         //add payment field to checkout
-        $this->loader->add_filter('woocommerce_checkout_fields', $plugin_public, 'custom_override_checkout_fields');
+        $this->loader->add_filter('woocommerce_checkout_fields', $plugin_public, 'add_amount_checkout_fields');
 
         //add hidden payment field at checkout
         $this->loader->add_action('woocommerce_before_order_notes', $plugin_public, 'add_verify_payment_checkout_field');
@@ -181,6 +183,14 @@ class AmountPayment {
         //Process of Checkout
         $this->loader->add_action('woocommerce_checkout_process', $plugin_public, 'verify_checkout_field_process');
         $this->loader->add_action('woocommerce_before_calculate_totals', $plugin_public, 'recalc_price');
+
+        $this->loader->add_filter('woocommerce_order_button_text', $plugin_public, 'change_button_text');
+
+        $options = get_option('amount_payment_settings');
+
+        if (isset($options['amount_payment_auto_complete']) && 1 == intval($options['amount_payment_auto_complete'])) {
+            $this->loader->add_action('woocommerce_thankyou', $plugin_public, 'new_order_auto_complete_order');
+        }
     }
 
     /**

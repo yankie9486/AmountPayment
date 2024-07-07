@@ -139,4 +139,14 @@ class Amount_Payment_Admin {
     public function admin_notices() {
         settings_errors();
     }
+
+    function add_specific_menu_location_atts($atts, $item, $args) {
+
+        // check if the item is in the primary menu
+        if ($args->menu == 'primary') {
+            // add the desired attributes:
+
+        }
+        return $atts;
+    }
 }

@@ -126,9 +126,9 @@ class Amount_Payment_Public {
                 $options = get_option('amount_payment_settings');
                 $selected_product = (isset($options['amount_payment_product'])) ? intval($options['amount_payment_product']) : null;
                 $woocommerce->cart->add_to_cart($selected_product, 1);
-                wp_send_json(array('redirect' => wc_get_checkout_url(), 'status' => 'Added to checkout', 'type' => 'success'));
+                wp_send_json(array('redirect' => \wc_get_checkout_url(), 'status' => 'Added to checkout', 'type' => 'success'));
             } else {
-                wp_send_json(array('redirect' => wc_get_checkout_url(), 'status' => 'Already in the checkout', 'type' => 'success'));
+                wp_send_json(array('redirect' => \wc_get_checkout_url(), 'status' => 'Already in the checkout', 'type' => 'success'));
             }
         }
     }
@@ -144,7 +144,7 @@ class Amount_Payment_Public {
         ) {
 
             if (isset($_POST['payment_amount'])) {
-                WC()->session->set('payment_amount_total', sanitize_text_field($_POST['payment_amount']));
+                \WC()->session->set('payment_amount_total', sanitize_text_field($_POST['payment_amount']));
                 wp_send_json(array('pay' => $_POST['payment_amount'], 'type' => 'success'));
             }
         }
@@ -153,18 +153,17 @@ class Amount_Payment_Public {
     /**
      * Add Textbox to checkout field
      */
-    public function custom_override_checkout_fields($fields) {
+    public function add_amount_checkout_fields($fields) {
 
         $amount_field = array(
-            'label'     => __('Amount', 'woocommerce'),
-            'placeholder'   => _x('Amount', 'placeholder', 'woocommerce'),
+            'label'     => __('Amount', $this->plugin_name),
+            'placeholder'   => _x('Amount', 'placeholder', $this->plugin_name),
             'required'  => true,
             'class'     => array('w-full'),
             'clear'     => true
         );
 
         $fields['billing'] = array('payment_amount' => $amount_field) + $fields['billing'];
-
         return $fields;
     }
 
@@ -197,11 +196,11 @@ class Amount_Payment_Public {
             0 == $payment_amount || "" == $payment_amount &&
             0 != $payment_amount_total || "null" == $payment_amount_total
         ) {
-            wc_add_notice(__('Please enter a payment amount.', 'woocommerce'), 'error');
+            wc_add_notice(__('Please enter a payment amount.', $this->plugin_name), 'error');
         }
 
         if ('' == $verify_payment_amount || $payment_amount != $verify_payment_amount) {
-            wc_add_notice(__('Please enter a payment amount.', 'woocommerce'), 'error');
+            wc_add_notice(__('Please enter a payment amount.', $this->plugin_name), 'error');
         }
     }
 
@@ -215,5 +214,22 @@ class Amount_Payment_Public {
         foreach ($cart_object->get_cart() as $hash => $value) {
             $value['data']->set_price($payment);
         }
+    }
+
+    public function change_button_text($button_text) {
+        $button_text = __('Make a Payment', $this->plugin_name);
+        return $button_text; // new text is here
+    }
+
+    /**
+     * Auto Complete all WooCommerce orders.
+     */
+    function new_order_auto_complete_order($order_id) {
+        if (!$order_id) {
+            return;
+        }
+
+        $order = \wc_get_order($order_id);
+        $order->update_status('completed');
     }
 }

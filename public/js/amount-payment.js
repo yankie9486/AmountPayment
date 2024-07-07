@@ -1,5 +1,5 @@
 jQuery(function ($) {
-  $(".add_to_cart_payment").on("click", function (e) {
+  $(".add_to_cart_payment a").on("click", function (e) {
     $.ajax({
       type: "post",
       dataType: "json",
