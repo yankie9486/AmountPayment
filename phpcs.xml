@@ -51,18 +51,18 @@
 	<rule ref="WordPress.WP.I18n">
 		<properties>
 			<property name="text_domain" type="array">
-				<element value="wp-tdd"/>
+				<element value="amount-payment"/>
 			</property>
 		</properties>
 	</rule>
 
-	<rule ref="WordPress.NamingConventions.PrefixAllGlobals">
+	<!-- <rule ref="WordPress.NamingConventions.PrefixAllGlobals">
 		<properties>
 			<property name="prefixes" type="array">
-				<element value="wptdd"/>
+				<element value="ap"/>
 			</property>
 		</properties>
-	</rule>
+	</rule> -->
 
 	<rule ref="Squiz.Commenting.FunctionComment.Missing">
 		<exclude name="Squiz.Commenting.FunctionComment.Missing"/>

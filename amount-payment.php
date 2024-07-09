@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Plugin Name: Amount Payment
  * Plugin URI:
@@ -11,25 +10,23 @@
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
  * Domain Path: /languages
  * Text Domain: amount-payment
+ *
+ * @package    Amount_Payment
  */
 
-
 // If this file is called directly, abort.
-if (!defined('WPINC')) {
-    die;
+if ( ! defined( 'WPINC' ) ) {
+	die;
 }
 
-// if (!class_exists('WooCommerce')) {
-//     die();
-// }
-
-define('AMOUNT_PAYMENT_VERSION', '1.0.0');
+define( 'AMOUNT_PAYMENT_VERSION', '1.0.0' );
+define( 'DOMAIN_LANG', 'amount-payment' );
 
 /**
  * The core plugin class that is used to define internationalization,
  * admin-specific hooks, and public-facing site hooks.
  */
-require plugin_dir_path(__FILE__) . 'includes/class-amount-payment.php';
+require plugin_dir_path( __FILE__ ) . 'includes/class-amount-payment.php';
 
 
 /**
@@ -43,7 +40,7 @@ require plugin_dir_path(__FILE__) . 'includes/class-amount-payment.php';
  */
 function run_plugin_name() {
 
-    $plugin = new AmountPayment();
-    $plugin->run();
+	$plugin = new Amount_Payment();
+	$plugin->run();
 }
 run_plugin_name();

@@ -4,7 +4,7 @@ jQuery(function ($) {
   function setPayment() {
     var paymentAmount = $("#payment_amount").val();
     var paymentHidden = $("#verify_payment_amount");
-    console.log(paymentHidden);
+ 
     $.ajax({
       type: "post",
       dataType: "json",
@@ -15,14 +15,14 @@ jQuery(function ($) {
         payment_amount: paymentAmount,
       },
       success: function (response) {
-        console.log(response);
+
         if (response.type == "success") {
           paymentHidden.val(response.pay);
           $("body").trigger("update_checkout");
         }
       },
       error: function (err) {
-        console.log(err);
+        console.error(err);
       },
     });
   }

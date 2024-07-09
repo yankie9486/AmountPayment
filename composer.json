@@ -12,6 +12,7 @@
     },
     "scripts": {
 		"php-unit-test": "phpcs --standard=phpcs.xml ./**",
-		"php-unit-test-automation": "phpcs --standard=phpcs.xml --report-full= phpcs-log.txt ./** --warning-severity=0"
+		"php-unit-test-automation": "phpcs --standard=phpcs.xml --report-full= phpcs-log.txt ./** --warning-severity=0",
+        "php-test-fix": "phpcbf --standard=phpcs.xml ./**"
 	}
 }
