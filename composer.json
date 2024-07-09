@@ -1,0 +1,17 @@
+{
+
+    "require-dev": {
+        "wp-coding-standards/wpcs": "^3.1",
+        "dealerdirect/phpcodesniffer-composer-installer": "^1.0",
+        "phpcompatibility/php-compatibility": "^9.3"
+    },
+    "config": {
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        }
+    },
+    "scripts": {
+		"php-unit-test": "phpcs --standard=phpcs.xml ./**",
+		"php-unit-test-automation": "phpcs --standard=phpcs.xml --report-full= phpcs-log.txt ./** --warning-severity=0"
+	}
+}
