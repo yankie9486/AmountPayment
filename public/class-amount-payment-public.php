@@ -240,7 +240,7 @@ class Amount_Payment_Public {
 	 * @return void
 	 */
 	public function recalc_price( $cart_object ) {
-		wp_die(var_dump($cart_object));
+
 		$payment = ( ! empty( WC()->session->get( 'payment_amount_total' ) ) ) ? WC()->session->get( 'payment_amount_total' ) : 0;
 
 		foreach ( $cart_object->get_cart() as $hash => $value ) {
