@@ -1,4 +1,4 @@
-#Amount Payment Plugin for Woocommerce
+# Amount Payment for woocommcere checkouts
 
 Adds a amount payment field to the checkout page.
 

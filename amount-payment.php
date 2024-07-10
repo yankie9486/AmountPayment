@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Amount Payment
  * Plugin URI:
- * Description:
+ * Description: Adds an amount field to the checkout for woocommerce.
  * Version: 1.0.0
  * Author: Giancarlo Cunis
  * Author URI: http://www.cunisinc.com
@@ -20,7 +20,6 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 define( 'AMOUNT_PAYMENT_VERSION', '1.0.0' );
-define( 'DOMAIN_LANG', 'amount-payment' );
 
 /**
  * The core plugin class that is used to define internationalization,
